@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  "name": "Google AI Overview Cleaner",
+  "version": "1.0",
+  "author": "Austin Laubach",
+  "description": "Appends -ai to Google searches to filter out AI results. Ignores searches that already include 'ai' within, to prevent empty results. This is a fork of the addon 'AIPurge' by Matt Anderson. Credits to him for the original source code. The purpose of the fork is to add functionality to avoid 'zero-result' searches when a query originally includes the 'ai' string.",
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "storage",
+    "*://www.google.com/search*"
+  ],
+  "background": {
+    "scripts": [
+      "abominable.js"
+    ]
+  },
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": "icons/icon-16.png"
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{}"
+    }
+  }
+}
