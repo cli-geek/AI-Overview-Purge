@@ -1,7 +1,6 @@
 // Service worker file - handles declarativeNetRequest rules
-if (typeof importScripts === 'function') {
-    importScripts('browser-polyfill.js'); // Imports the polyfille lib for Chrome
-}
+importScripts('browser-polyfill.js'); // Imports the polyfille lib
+
 
 browser.runtime.onInstalled.addListener( async () => {
     const state = await browser.storage.local.get("enabled");

@@ -1,8 +1,4 @@
 // content.js - handles content script logic for removing AI overviews from Google Search results
-if (typeof importScripts === 'function') {
-    importScripts("browser-polyfill.js");
-}
-
 const SELECTORS = [
     '[data-mcpr]',
 ];
