@@ -2,11 +2,9 @@
     "manifest_version": 3,
     "name": "AI Overview Purger",
     "version": "1.0.0",
-    "description": "Removes AI overviews from Google Search results. Avoids malforming queries specifically regarding AI content.",
+    "description": "Removes AI overviews from Google Search results.",
 
     "permissions": [
-        "declarativeNetRequest",
-        "declarativeNetRequestWithHostAccess",
         "storage"
     ],
 
@@ -19,6 +17,14 @@
         "scripts": ["browser-polyfill.js", "background.js"],
         "type": "module"
     },
+
+    "content_scripts": [
+        {
+            "matches": ["*://www.google.com/search*"],
+            "js": ["browser-polyfill.js", "content.js"],
+            "run_at": "document_idle"
+        }
+    ],
 
     "action": {
         "default_popup": "popup.html",

@@ -1,11 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>AI Overview Purge</title>
-  </head>
-  <body>
-    <!-- Toggle switch will go here -->
-    <script src="popup.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>AI Overview Purge</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 10px;
+      width: 200px;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+  <label>
+    PURGE AI
+    <input type="checkbox" id="toggle">
+  </label>
+
+  <script src="popup.js"></script>
+</body>
 </html>
