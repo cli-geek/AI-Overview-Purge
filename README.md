@@ -18,6 +18,7 @@ Remove AI-generated overviews from Google Search results for a cleaner, distract
 
 ### Chrome / Firefox (via Web Store)
 This extension is currently pending review by Google and Mozilla. After review, you may install the extension at the store pages:
+
 **Firefox** : https://addons.mozilla.org/en-US/firefox/addon/google-ai-overview-purger/
 
 **Chrome** : Pending approval
