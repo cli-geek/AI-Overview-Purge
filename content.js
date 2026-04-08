@@ -1,17 +1,98 @@
-// content.js - handles content script logic for removing AI overviews from Google Search results
-const SELECTORS = [
-    '[data-mcpr]',
-];
+const SELECTOR = '[data-mcpr]';
 
-(async () => {
-    const state = await browser.storage.local.get("enabled");
-    if (!state.enabled) return;
+let enabled = null;
+let observer = null;
+let debounceTimer = null;
+let styleEl = null;
 
-    // otherwise we can modify the DOM to remove the AI overviews
+// ===== STYLE CONTROL =====
+function addStyle() {
+    if (styleEl) return;
+
+    styleEl = document.createElement('style');
+    styleEl.textContent = `${SELECTOR} { display: none !important; }`;
+
+    const inject = () => {
+        const parent = document.head || document.documentElement;
+        if (!parent) return false;
+
+        parent.appendChild(styleEl);
+        return true;
+    };
+
+    // Try immediately
+    if (inject()) return;
+
+    // Fallback (minimal + safe)
     const observer = new MutationObserver(() => {
-        for (const selector of SELECTORS) { // loop over the selectors list. for now it's just one selector, but this allows for easy expansion in the future if needed
-            const elements = document.querySelector(selector);
-            elements.remove();
-        }
+        if (inject()) observer.disconnect();
     });
-})();
+
+    observer.observe(document, { childList: true });
+}
+
+function removeStyle() {
+    if (styleEl) {
+        styleEl.remove();
+        styleEl = null;
+    }
+}
+
+// ===== OBSERVER/PURGE CONTROL =====
+    function purge() {
+    if (!enabled) return;
+
+    document.querySelectorAll(SELECTOR).forEach(el => el.remove());
+}
+
+function startObserver() {
+    if (observer) return;
+
+    observer = new MutationObserver(() => {
+        if (!enabled) return;
+
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(purge, 50);
+    });
+
+    observer.observe(document, {
+        childList: true,
+        subtree: true
+    });
+}
+
+function stopObserver() {
+    if (observer) {
+        observer.disconnect();
+        observer = null;
+    }
+}
+
+function enable() {
+    addStyle();
+    purge();
+    startObserver();
+}
+
+function disable() {
+    removeStyle();
+    stopObserver();
+}
+
+browser.storage.local.get("enabled").then(res => {
+    enabled = res.enabled ?? true;
+
+    if (enabled) enable();
+});
+
+browser.storage.onChanged.addListener((changes, area) => {
+    if (area !== "local" || !changes.enabled) return;
+
+    enabled = changes.enabled.newValue;
+
+    if (enabled) {
+        enable();
+    } else {
+        disable();
+    }
+});
