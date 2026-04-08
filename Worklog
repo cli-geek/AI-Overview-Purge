@@ -1,0 +1,18 @@
+04/08/26 @ 1:13 am
+
+starting the process of the mv3 rewrite. just did a full empty commit on a new branch of the github.
+
+git checkout -b mv3_port
+git push -u origin mv3_port
+git rm -rf .
+git commit --allow-empty -m "..."
+
+the first thing one should do when writing an extension is create the manifest.json
+
+manifest.json created, as well as other base .js files.
+
+tomorrows goals:
+	1. figure out how to redirect using the original query, appending -ai to the search
+	2. finish the popup logic if redirection is straight forward
+	
+time of sign-off: 1:53 am
