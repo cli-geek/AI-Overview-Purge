@@ -10,7 +10,7 @@ Remove AI-generated overviews from Google Search results for a cleaner, distract
 * ⚡ Runs in real-time as results load
 * 🧠 Lightweight and efficient (minimal performance impact)
 * 🔘 Simple toggle to enable or disable anytime
-* 🔒 No data collection — everything runs locally
+* 🔒 No data collection - everything runs locally
 
 ---
 
@@ -98,6 +98,7 @@ Separate branches are used for compatibility:
 * `main` → Chrome
 * `firefox` → Firefox
 
+Note: there are no major difference in the code between branches. The only difference is within the `manifest.json` file, to ensure compliance with the different standards provided by Mozilla and Google.
 ---
 
 ## 🚀 Roadmap
